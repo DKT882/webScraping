@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
 def getDrivers():
 # set options to make brow  ing easier
     options = webdriver.ChromeOptions()
@@ -11,11 +13,17 @@ def getDrivers():
     options.add_argument("disable-blink-features=AutomationControlled")
 
     driver=webdriver.Chrome(options=options)
-    driver.get("https://en.wikipedia.org/wiki/Python_(programming_language)")
+    driver.get("https://practicetestautomation.com/practice-test-login/")
     return driver
 
 def main():
     driver=getDrivers()
-    element=driver.find_element(by= "xpath" ,value= "/html/body/div[2]/div/div[3]/main/div[3]/div[3]/div[1]/p[9]")
-    return element.text
-print(main())
+    driver.find_element(by= "id" ,value= "username").send_keys("student")
+    driver.find_element(by= "id" ,value= "password").send_keys("Password123")
+    time.sleep(2)
+    driver.find_element(by= "id" ,value= "submit").click()
+    print(driver.find_element(by= "xpath" ,value= "/html/body/div/div/section/div/div/article/div[1]/h1").text)
+    print(driver.current_url)
+    time.sleep(2)
+    
+main()
